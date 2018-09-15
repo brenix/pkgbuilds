@@ -2,7 +2,7 @@
 
 This repo contains `PKGBUILD` sources for various AUR packages. Packages are updated/published using [aurpublish](https://github.com/eli-schwartz/aurpublish).
 
-## Publishing a new package
+## Adding a new package
 
 Create a new directory and add the source PKBUILD and commit changes, then run `aurpublish` to publish your changes
 
@@ -10,3 +10,16 @@ Create a new directory and add the source PKBUILD and commit changes, then run `
 aurpublish <pkg>
 ```
 
+## Updating an existing AUR package
+
+Use aurpublish to pull the repository
+
+```
+aurpublish -p <pkg>
+```
+
+Then update the sources and publish them
+
+```
+aurpublish <pkg>
+```
