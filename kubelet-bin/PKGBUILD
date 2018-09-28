@@ -10,9 +10,11 @@ license=('apache')
 conflicts=('kubernetes')
 source_x86_64=(
   'https://packages.cloud.google.com/apt/pool/kubelet_1.12.0-00_amd64_24f580dcc7cb8cb8439da40c2e1488f1851dac9dfaac0b64b94492538e59f948.deb'
+  'kubelet.service'
 )
 sha256sums_x86_64=(
   '24f580dcc7cb8cb8439da40c2e1488f1851dac9dfaac0b64b94492538e59f948'
+  'af277acd2b60f67b616f45e7c4a2ed46eba664a22c285a2bf76cc300501aad40'
 )
 
 package() {
