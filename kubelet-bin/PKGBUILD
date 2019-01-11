@@ -2,18 +2,18 @@
 
 pkgname=kubelet-bin
 pkgdesc="Kubernetes.io kubelet binary"
-pkgver=1.13.1
+pkgver=1.13.2
 pkgrel=1
 arch=('x86_64')
 url="http://kubernetes.io"
 license=('apache')
 conflicts=('kubernetes')
 source_x86_64=(
-  'https://packages.cloud.google.com/apt/pool/kubelet_1.13.1-00_amd64_158e81cf03ce9a1e2c9cc0dc609f864ba4959ceade5227d5b63708a2c2e3cedf.deb'
+  'https://packages.cloud.google.com/apt/pool/kubelet_1.13.2-00_amd64_82d092e6177b68cfdde60b9c58de4091ab466e61a4a0328d897275811bc62500.deb'
   'kubelet.service'
 )
 sha256sums_x86_64=(
-  '158e81cf03ce9a1e2c9cc0dc609f864ba4959ceade5227d5b63708a2c2e3cedf'
+  '82d092e6177b68cfdde60b9c58de4091ab466e61a4a0328d897275811bc62500'
   'af277acd2b60f67b616f45e7c4a2ed46eba664a22c285a2bf76cc300501aad40'
 )
 
