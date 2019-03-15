@@ -4,7 +4,7 @@
 
 _name="caddy"
 pkgname="$_name-bin"
-pkgver=0.11.4
+pkgver=0.11.5
 pkgrel=1
 pkgdesc='HTTP/2 web server with automatic HTTPS'
 arch=('x86_64')
