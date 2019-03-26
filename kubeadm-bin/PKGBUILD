@@ -3,7 +3,7 @@
 
 pkgname=kubeadm-bin
 pkgdesc="Kubernetes.io kubeadm binary"
-pkgver=1.13.4
+pkgver=1.14.0
 pkgrel=1
 arch=('x86_64')
 url="http://kubernetes.io"
@@ -11,10 +11,10 @@ license=('apache')
 depends=('kubelet-bin')
 conflicts=('kubernetes')
 source_x86_64=(
-  'https://packages.cloud.google.com/apt/pool/kubeadm_1.13.4-00_amd64_1094a7c75b7764a1b43d1009e76532f5a30e940e5a8154ccb82ea0abf8792685.deb'
+  'https://packages.cloud.google.com/apt/pool/kubeadm_1.14.0-00_amd64_37d071fc4060e54bd626faae826e8ab2750a7cb6bf90d189cea52453677df80a.deb'
 )
 sha256sums_x86_64=(
-  '1094a7c75b7764a1b43d1009e76532f5a30e940e5a8154ccb82ea0abf8792685'
+  '37d071fc4060e54bd626faae826e8ab2750a7cb6bf90d189cea52453677df80a'
 )
 
 package() {
