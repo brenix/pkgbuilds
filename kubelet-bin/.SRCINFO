@@ -1,0 +1,24 @@
+pkgbase = kubelet-bin
+	pkgdesc = Kubernetes.io kubelet binary
+	pkgver = 1.14.1
+	pkgrel = 0
+	url = http://kubernetes.io
+	arch = x86_64
+	arch = armv7l
+	arch = armv7h
+	arch = aarch64
+	license = apache
+	provides = kubelet
+	conflicts = kubernetes
+	conflicts = kubernetes-bin
+	source_x86_64 = https://packages.cloud.google.com/apt/pool/kubelet_1.14.1-00_amd64_60ce697defdd990aee5e4b40abc7274f71e3aef6d9cc4feab240c8dc5681ed05.deb
+	sha256sums_x86_64 = 60ce697defdd990aee5e4b40abc7274f71e3aef6d9cc4feab240c8dc5681ed05
+	source_armv7l = https://packages.cloud.google.com/apt/pool/kubelet_1.14.1-00_armhf_71907b6dfe6ad148ba073ddb19a5f5218b0c028500ad4c1092971b703680eef1.deb
+	sha256sums_armv7l = 71907b6dfe6ad148ba073ddb19a5f5218b0c028500ad4c1092971b703680eef1
+	source_armv7h = https://packages.cloud.google.com/apt/pool/kubelet_1.14.1-00_armhf_71907b6dfe6ad148ba073ddb19a5f5218b0c028500ad4c1092971b703680eef1.deb
+	sha256sums_armv7h = 71907b6dfe6ad148ba073ddb19a5f5218b0c028500ad4c1092971b703680eef1
+	source_aarch64 = https://packages.cloud.google.com/apt/pool/kubelet_1.14.1-00_arm64_58dab728a2398d686547a18be1d49c7529a08f34c7ba85df142b4319aa1d30b0.deb
+	sha256sums_aarch64 = 58dab728a2398d686547a18be1d49c7529a08f34c7ba85df142b4319aa1d30b0
+
+pkgname = kubelet-bin
+
