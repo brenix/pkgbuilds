@@ -1,4 +1,8 @@
+**/kubeadm
+**/kubelet
+*.conf
+*.deb
+*.service
 *.tar.xz
 *.tgz
-*.deb
 *_amd64*
