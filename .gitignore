@@ -5,4 +5,5 @@
 *.service
 *.tar.xz
 *.tgz
+*.zst
 *_amd64*
