@@ -1,6 +1,6 @@
 pkgbase = linux-brx
 	pkgdesc = Linux
-	pkgver = 5.3.15
+	pkgver = 5.4.2
 	pkgrel = 1
 	url = https://github.com/brenix/pkgbuilds
 	arch = x86_64
@@ -13,22 +13,22 @@ pkgbase = linux-brx
 	makedepends = libelf
 	makedepends = xmlto
 	options = !strip
-	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.3.tar.xz
-	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.3.tar.sign
-	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.3.15.xz
-	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.3.14-874
+	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.4.tar.xz
+	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.4.tar.sign
+	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.4.2.xz
+	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.4.2-875
 	source = enable_additional_cpu_optimizations-20190822.tar.gz::https://github.com/graysky2/kernel_gcc_patch/archive/20190822.tar.gz
-	source = add-acs-overrides.patch::https://aur.archlinux.org/cgit/aur.git/plain/add-acs-overrides.patch?h=linux-vfio
-	source = 0001_bmq_v5.3-r2.patch::https://gitlab.com/alfredchen/bmq/raw/master/5.3/bmq_v5.3-r2.patch
+	source = pci-enable-overrides-for-missing-acs-capabilities.patch
+	source = 0001_bmq_v5.4-r0.patch::https://gitlab.com/alfredchen/bmq/raw/master/5.4/bmq_v5.4-r0.patch
 	validpgpkeys = ABAF11C65A2970B130ABE3C479BE3E4300411886
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
-	sha256sums = 78f3c397513cf4ff0f96aa7d09a921d003e08fa97c09e0bb71d88211b40567b2
-	sha256sums = SKIP
-	sha256sums = 205c9ec3d4ab126bb0f7c7c7a66f97ea89fdbbfa2145c49490c86709648ff538
-	sha256sums = SKIP
-	sha256sums = 8c11086809864b5cef7d079f930bd40da8d0869c091965fa62e95de9a0fe13b5
-	sha256sums = dbf4ac4b873ce6972e63b78d74ddba18f2701716163bb7f4b4fe5e909346a6e1
-	sha256sums = SKIP
+	md5sums = ce9b2d974d27408a61c53a30d3f98fb9
+	md5sums = SKIP
+	md5sums = debad4bcc336d83f6bff88aed8384038
+	md5sums = SKIP
+	md5sums = 75379a02ef537346bbbb8b1f5a49d8a5
+	md5sums = 54ec67669c012577bdebea2b3905db5a
+	md5sums = 75daa4dc80d1d3e07898da05f08fe846
 
 pkgname = linux-brx
 	pkgdesc = The Linux kernel and modules
