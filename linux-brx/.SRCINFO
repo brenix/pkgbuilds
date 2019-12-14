@@ -1,6 +1,6 @@
 pkgbase = linux-brx
 	pkgdesc = Linux
-	pkgver = 5.4.2
+	pkgver = 5.4.3
 	pkgrel = 1
 	url = https://github.com/brenix/pkgbuilds
 	arch = x86_64
@@ -15,7 +15,7 @@ pkgbase = linux-brx
 	options = !strip
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.4.tar.xz
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.4.tar.sign
-	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.4.2.xz
+	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.4.3.xz
 	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.4.2-875
 	source = enable_additional_cpu_optimizations-20190822.tar.gz::https://github.com/graysky2/kernel_gcc_patch/archive/20190822.tar.gz
 	source = pci-enable-overrides-for-missing-acs-capabilities.patch
@@ -24,7 +24,7 @@ pkgbase = linux-brx
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
 	md5sums = ce9b2d974d27408a61c53a30d3f98fb9
 	md5sums = SKIP
-	md5sums = debad4bcc336d83f6bff88aed8384038
+	md5sums = 168c9c91c2758476cedcb469b7a0bd39
 	md5sums = SKIP
 	md5sums = 75379a02ef537346bbbb8b1f5a49d8a5
 	md5sums = 54ec67669c012577bdebea2b3905db5a
