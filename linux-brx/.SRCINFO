@@ -1,6 +1,6 @@
 pkgbase = linux-brx
 	pkgdesc = Linux
-	pkgver = 5.4.5
+	pkgver = 5.4.6
 	pkgrel = 1
 	url = https://github.com/brenix/pkgbuilds
 	arch = x86_64
@@ -15,8 +15,8 @@ pkgbase = linux-brx
 	options = !strip
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.4.tar.xz
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.4.tar.sign
-	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.4.5.xz
-	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.4.4-879
+	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.4.6.xz
+	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.4.5-882
 	source = enable_additional_cpu_optimizations-20190822.tar.gz::https://github.com/graysky2/kernel_gcc_patch/archive/20190822.tar.gz
 	source = pci-enable-overrides-for-missing-acs-capabilities.patch
 	source = 0001_bmq_v5.4-r1.patch::https://gitlab.com/alfredchen/bmq/raw/master/5.4/bmq_v5.4-r1.patch
@@ -27,7 +27,7 @@ pkgbase = linux-brx
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
 	sha256sums = bf338980b1670bca287f9994b7441c2361907635879169c64ae78364efc5f491
 	sha256sums = SKIP
-	sha256sums = 7ac5c8967fb99aa379148c1edd7bc98689972fecf916e77954cd36328f85b260
+	sha256sums = 80853920a753762e058e35b754d3e0d16ec2fb485dfb84cc40fbdba383a8da17
 	sha256sums = SKIP
 	sha256sums = 8c11086809864b5cef7d079f930bd40da8d0869c091965fa62e95de9a0fe13b5
 	sha256sums = a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac
