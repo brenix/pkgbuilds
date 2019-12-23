@@ -1,0 +1,25 @@
+diff --git a/cpuset/commands/set.py b/cpuset/commands/set.py
+index 9205a07..e299d70 100644
+--- a/cpuset/commands/set.py
++++ b/cpuset/commands/set.py
+@@ -410,8 +410,8 @@ def modify(name, cpuspec=None, memspec=None, cx=None, mx=None):
+     log.debug('modifying cpuset "%s"', nset.name)
+     if cpuspec: nset.cpus = cpuspec
+     if memspec: nset.mems = memspec
+-    if cx: nset.cpu_exclusive = cx
+-    if mx: nset.mem_exclusive = mx
++    # if cx: nset.cpu_exclusive = cx
++    # if mx: nset.mem_exclusive = mx
+
+ def active(name):
+     """check that cpuset by name or cset is ready to be used"""
+diff --git a/cset b/cset
+index 9320532..83e4a0c 100755
+--- a/cset
++++ b/cset
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+
+ __copyright__ = """
+ Copyright (C) 2007-2010 Novell Inc.
