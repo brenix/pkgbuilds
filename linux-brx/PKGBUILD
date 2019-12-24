@@ -76,18 +76,19 @@ url="https://github.com/brenix/pkgbuilds"
 license=('GPL2')
 makedepends=('bc' 'cpio' 'git' 'inetutils' 'kmod' 'libelf' 'xmlto')
 options=('!strip')
+_wrg_snap='0.0.20191219'
 _gcc_more_v='20190822'
 source=(
-  "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.xz"
-  "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.sign"
-  "https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
-  "clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
-  "enable_additional_cpu_optimizations-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_gcc_patch/archive/$_gcc_more_v.tar.gz"
-  "pci-enable-overrides-for-missing-acs-capabilities.patch"
-  "0001_${_bmq_patch}::https://gitlab.com/alfredchen/bmq/raw/master/${_bmqversion%-*}/${_bmq_patch}"
-  'futex-wait-multiple-5.2.1.patch::https://aur.archlinux.org/cgit/aur.git/plain/futex-wait-multiple-5.2.1.patch?h=linux-fsync'
-  'Revert-e1000e-5.4.patch'
-  'Fix-dump_tree-hierarchy-print-always-active.patch::https://lkml.org/lkml/diff/2019/10/6/918/1'
+    "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.xz"
+    "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.sign"
+    "https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+    "clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
+    "https://git.zx2c4.com/WireGuard/snapshot/WireGuard-${_wrg_snap}.tar.xz"
+    "enable_additional_cpu_optimizations-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_gcc_patch/archive/$_gcc_more_v.tar.gz"
+    "pci-enable-overrides-for-missing-acs-capabilities.patch"
+    "0001_${_bmq_patch}::https://gitlab.com/alfredchen/bmq/raw/master/${_bmqversion%-*}/${_bmq_patch}"
+    'futex-wait-multiple-5.2.1.patch::https://aur.archlinux.org/cgit/aur.git/plain/futex-wait-multiple-5.2.1.patch?h=linux-fsync'
+    'Revert-e1000e-5.4.patch'
 )
 
 export KBUILD_BUILD_HOST=archlinux
@@ -98,126 +99,119 @@ prepare() {
     cd ${_srcname}
 
     ### Add upstream patches
-        msg2 "Add upstream patches"
-        patch -Np1 -i ../patch-${pkgver}
+    msg2 "Add upstream patches"
+    patch -Np1 -i ../patch-${pkgver}
 
     ### Setting version
-        msg2 "Setting version..."
-        scripts/setlocalversion --save-scmversion
-        echo "-$pkgrel" > localversion.10-pkgrel
-        echo "${pkgbase#linux}" > localversion.20-pkgname
+    msg2 "Setting version..."
+    scripts/setlocalversion --save-scmversion
+    echo "-$pkgrel" >localversion.10-pkgrel
+    echo "${pkgbase#linux}" >localversion.20-pkgname
 
     ### Add Clearlinux patches
-        for i in $(grep '^Patch' ${srcdir}/clearlinux/linux.spec | grep -Ev '^Patch00|^Patch0120|^Patch0123|^Patch0130' | sed -n 's/.*: //p'); do
+    for i in $(grep '^Patch' ${srcdir}/clearlinux/linux.spec | grep -Ev '^Patch00|^Patch0120|^Patch0123|^Patch0130' | sed -n 's/.*: //p'); do
         msg2 "Applying patch ${i}..."
         patch -Np1 -i "$srcdir/clearlinux/${i}"
-        done
+    done
+
+    ### Link the WireGuard source directory into the kernel tree
+    msg2 "Adding the WireGuard source directory..."
+    "${srcdir}/WireGuard-${_wrg_snap}/contrib/kernel-tree/jury-rig.sh" ./
 
     ## Add other patches
     local src
     for src in "${source[@]}"; do
         src="${src%%::*}"
         src="${src##*/}"
-        [[ $src = *.patch ]] || continue
+        [[ $src == *.patch ]] || continue
         msg2 "Applying patch $src..."
-        patch -Np1 < "../$src"
+        patch -Np1 <"../$src"
     done
 
     ### Setting config
-        msg2 "Setting config..."
-        cp -Tf $srcdir/clearlinux/config ./.config
+    msg2 "Setting config..."
+    cp -Tf $srcdir/clearlinux/config ./.config
 
     ### Enable extra stuff from arch kernel
-        msg2 "Enable extra stuff from arch kernel..."
+    msg2 "Enable extra stuff from arch kernel..."
 
-        # General setup
-        scripts/config --module IKCONFIG \
-                       --enable-after IKCONFIG IKCONFIG_PROC \
-                       --undefine RT_GROUP_SCHED
+    # General setup
+    scripts/config --module IKCONFIG \
+        --enable-after IKCONFIG IKCONFIG_PROC \
+        --undefine RT_GROUP_SCHED
 
-        # Power management and ACPI options
-        scripts/config --enable HIBERNATION \
-                       --enable ACPI_REV_OVERRIDE_POSSIBLE  \
-                       --enable ACPI_TABLE_UPGRADE
+    # Power management and ACPI options
+    scripts/config --enable HIBERNATION \
+        --enable ACPI_REV_OVERRIDE_POSSIBLE \
+        --enable ACPI_TABLE_UPGRADE
 
-        # Enable loadable module support
-        scripts/config --undefine MODULE_SIG_FORCE \
-                       --enable MODULE_COMPRESS \
-                       --enable-after MODULE_COMPRESS MODULE_COMPRESS_XZ
+    # Enable loadable module support
+    scripts/config --undefine MODULE_SIG_FORCE \
+        --enable MODULE_COMPRESS \
+        --enable-after MODULE_COMPRESS MODULE_COMPRESS_XZ
 
-        # Networking support
-        scripts/config --enable NETFILTER_INGRESS \
-                       --module NET_SCH_CAKE
+    # Networking support
+    scripts/config --enable NETFILTER_INGRESS \
+        --module NET_SCH_CAKE
 
-        # Device Drivers
-        scripts/config --enable FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER \
-                       --enable DELL_SMBIOS_SMM \
-                       --module PATA_JMICRON \
-                       --enable-after SOUND SOUND_OSS_CORE \
-                       --enable SND_OSSEMUL \
-                       --module-after SND_OSSEMUL SND_MIXER_OSS \
-                       --module-after SND_MIXER_OSS SND_PCM_OSS \
-                       --enable-after SND_PCM_OSS SND_PCM_OSS_PLUGINS
-
-        # Security options
-        scripts/config --enable SECURITY_SELINUX \
-                       --enable-after SECURITY_SELINUX SECURITY_SELINUX_BOOTPARAM \
-                       --enable SECURITY_SMACK \
-                       --enable-after SECURITY_SMACK SECURITY_SMACK_BRINGUP \
-                       --enable-after SECURITY_SMACK_BRINGUP SECURITY_SMACK_NETFILTER \
-                       --enable-after SECURITY_SMACK_NETFILTER SECURITY_SMACK_APPEND_SIGNALS \
-                       --enable SECURITY_TOMOYO \
-                       --enable SECURITY_APPARMOR \
-                       --enable SECURITY_YAMA
+    # Device Drivers
+    scripts/config --enable FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER \
+        --enable DELL_SMBIOS_SMM \
+        --module PATA_JMICRON \
+        --enable-after SOUND SOUND_OSS_CORE \
+        --enable SND_OSSEMUL \
+        --module-after SND_OSSEMUL SND_MIXER_OSS \
+        --module-after SND_MIXER_OSS SND_PCM_OSS \
+        --enable-after SND_PCM_OSS SND_PCM_OSS_PLUGINS
 
     ### Enable personal customizations
-        msg2 "Enable extra personal customizations..."
+    msg2 "Enable extra personal customizations..."
 
-        # QEMU fix
-        scripts/config --enable CONFIG_PREEMPT_VOLUNTARY
+    # QEMU fix
+    scripts/config --enable CONFIG_PREEMPT_VOLUNTARY
 
-        make olddefconfig
+    make olddefconfig
 
     ### Patch source to unlock additional gcc CPU optimizations
-        # https://github.com/graysky2/kernel_gcc_patch
-        if [ "${_enable_gcc_more_v}" = "y" ]; then
+    # https://github.com/graysky2/kernel_gcc_patch
+    if [ "${_enable_gcc_more_v}" = "y" ]; then
         msg2 "Applying enable_additional_cpu_optimizations_for_gcc_v9.1+_kernel_v4.13+.patch ..."
         patch -Np1 -i "$srcdir/kernel_gcc_patch-$_gcc_more_v/enable_additional_cpu_optimizations_for_gcc_v9.1+_kernel_v4.13+.patch"
-        fi
+    fi
 
     ### Get kernel version
-        if [ "${_enable_gcc_more_v}" = "y" ] || [ -n "${_subarch}" ]; then
+    if [ "${_enable_gcc_more_v}" = "y" ] || [ -n "${_subarch}" ]; then
         yes "$_subarch" | make oldconfig
-        else
+    else
         make prepare
-        fi
+    fi
 
     ### Prepared version
-        make -s kernelrelease > version
-        msg2 "Prepared %s version %s" "$pkgbase" "$(<version)"
+    make -s kernelrelease >version
+    msg2 "Prepared %s version %s" "$pkgbase" "$(<version)"
 
     ### Optionally load needed modules for the make localmodconfig
-        # See https://aur.archlinux.org/packages/modprobed-db
-        if [ -n "$_localmodcfg" ]; then
-          if [ -f $HOME/.config/modprobed.db ]; then
+    # See https://aur.archlinux.org/packages/modprobed-db
+    if [ -n "$_localmodcfg" ]; then
+        if [ -f $HOME/.config/modprobed.db ]; then
             msg2 "Running Steven Rostedt's make localmodconfig now"
             make LSMOD=$HOME/.config/modprobed.db localmodconfig
-          else
+        else
             msg2 "No modprobed.db data found"
             exit
-          fi
         fi
+    fi
 
     ### do not run `make olddefconfig` as it sets default options
-        yes "" | make config >/dev/null
+    yes "" | make config >/dev/null
 
     ### Running make nconfig
 
-        [[ -z "$_makenconfig" ]] || make nconfig
+    [[ -z "$_makenconfig" ]] || make nconfig
 
     ### Save configuration for later reuse
 
-        cp -Tf ./.config "${startdir}/config-${pkgver}-${pkgrel}${pkgbase#linux}"
+    cp -Tf ./.config "${startdir}/config-${pkgver}-${pkgrel}${pkgbase#linux}"
 }
 
 build() {
@@ -229,8 +223,8 @@ _package() {
     pkgdesc="The $pkgdesc kernel and modules"
     depends=('coreutils' 'kmod' 'initramfs')
     optdepends=('crda: to set the correct wireless channels of your country'
-                'linux-firmware: firmware images needed for some devices'
-                'modprobed-db: Keeps track of EVERY kernel module that has ever been probed - useful for those of us who make localmodconfig')
+        'linux-firmware: firmware images needed for some devices'
+        'modprobed-db: Keeps track of EVERY kernel module that has ever been probed - useful for those of us who make localmodconfig')
     provides=('WIREGUARD-MODULE')
     install=linux.install
 
@@ -298,7 +292,7 @@ _package-headers() {
     msg2 "Removing unneeded architectures..."
     local arch
     for arch in "$builddir"/arch/*/; do
-        [[ $arch = */x86/ ]] && continue
+        [[ $arch == */x86/ ]] && continue
         echo "Removing $(basename "$arch")"
         rm -r "$arch"
     done
@@ -316,14 +310,14 @@ _package-headers() {
     local file
     while read -rd '' file; do
         case "$(file -bi "$file")" in
-            application/x-sharedlib\;*)      # Libraries (.so)
-                strip -v $STRIP_SHARED "$file" ;;
-            application/x-archive\;*)        # Libraries (.a)
-                strip -v $STRIP_STATIC "$file" ;;
-            application/x-executable\;*)     # Binaries
-                strip -v $STRIP_BINARIES "$file" ;;
-            application/x-pie-executable\;*) # Relocatable binaries
-                strip -v $STRIP_SHARED "$file" ;;
+        application/x-sharedlib\;*) # Libraries (.so)
+            strip -v $STRIP_SHARED "$file" ;;
+        application/x-archive\;*) # Libraries (.a)
+            strip -v $STRIP_STATIC "$file" ;;
+        application/x-executable\;*) # Binaries
+            strip -v $STRIP_BINARIES "$file" ;;
+        application/x-pie-executable\;*) # Relocatable binaries
+            strip -v $STRIP_SHARED "$file" ;;
         esac
     done < <(find "$builddir" -type f -perm -u+x ! -name vmlinux -print0)
 
@@ -337,23 +331,23 @@ _package-headers() {
 
 pkgname=("$pkgbase" "$pkgbase-headers")
 for _p in "${pkgname[@]}"; do
-  eval "package_$_p() {
+    eval "package_$_p() {
     $(declare -f "_package${_p#$pkgbase}")
     _package${_p#$pkgbase}
   }"
 done
 
 validpgpkeys=(
-  'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
-  '647F28654894E3BD457199BE38DBBDC86092693E'  # Greg Kroah-Hartman
+    'ABAF11C65A2970B130ABE3C479BE3E4300411886' # Linus Torvalds
+    '647F28654894E3BD457199BE38DBBDC86092693E' # Greg Kroah-Hartman
 )
 sha256sums=('bf338980b1670bca287f9994b7441c2361907635879169c64ae78364efc5f491'
-            'SKIP'
-            '80853920a753762e058e35b754d3e0d16ec2fb485dfb84cc40fbdba383a8da17'
-            'SKIP'
-            '8c11086809864b5cef7d079f930bd40da8d0869c091965fa62e95de9a0fe13b5'
-            'a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac'
-            '0b770209a72171dfd46401d67d13204a767eb1749ef522df7ea7292b83046537'
-            'b8a9225b4b5cbabac26398d11cc26566e4407d150dacb92f3411c9bb8cc23942'
-            'fe110dbbe3ee1439e0510e4d6864f5fc321f110f1c6db4c220c11945b002a22f'
-            '0c1c32cbf75af13baa250b87224564cc60d8480a7e0d9886ae7d664ca725be30')
+    'SKIP'
+    '80853920a753762e058e35b754d3e0d16ec2fb485dfb84cc40fbdba383a8da17'
+    'SKIP'
+    '5aba6f0c38e97faa0b155623ba594bb0e4bd5e29deacd8d5ed8bda8d8283b0e7'
+    '8c11086809864b5cef7d079f930bd40da8d0869c091965fa62e95de9a0fe13b5'
+    'a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac'
+    '0b770209a72171dfd46401d67d13204a767eb1749ef522df7ea7292b83046537'
+    'b8a9225b4b5cbabac26398d11cc26566e4407d150dacb92f3411c9bb8cc23942'
+    'fe110dbbe3ee1439e0510e4d6864f5fc321f110f1c6db4c220c11945b002a22f')
