@@ -1,5 +1,7 @@
 **/kubeadm
 **/kubelet
+**/src
+**/pkg
 *.conf
 *.deb
 *.service
