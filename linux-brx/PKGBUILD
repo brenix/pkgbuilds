@@ -62,9 +62,9 @@ _enable_acs_override="y"
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 
 _major=5.4
-_minor=6
+_minor=8
 _srcname=linux-${_major}
-_clr=${_major}.5-882
+_clr=${_major}.6-883
 _bmqversion=5.4-r1
 _bmq_patch="bmq_v${_bmqversion}.patch"
 pkgbase=linux-brx
@@ -76,14 +76,14 @@ url="https://github.com/brenix/pkgbuilds"
 license=('GPL2')
 makedepends=('bc' 'cpio' 'git' 'inetutils' 'kmod' 'libelf' 'xmlto')
 options=('!strip')
-_wrg_snap='0.0.20191219'
+_wrg_snap='0.0.20191226'
 _gcc_more_v='20190822'
 source=(
     "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.xz"
     "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.sign"
     "https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+    "https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-${_wrg_snap}.tar.xz"
     "clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
-    "https://git.zx2c4.com/WireGuard/snapshot/WireGuard-${_wrg_snap}.tar.xz"
     "enable_additional_cpu_optimizations-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_gcc_patch/archive/$_gcc_more_v.tar.gz"
     "pci-enable-overrides-for-missing-acs-capabilities.patch"
     "0001_${_bmq_patch}::https://gitlab.com/alfredchen/bmq/raw/master/${_bmqversion%-*}/${_bmq_patch}"
@@ -109,14 +109,15 @@ prepare() {
     echo "${pkgbase#linux}" >localversion.20-pkgname
 
     ### Add Clearlinux patches
-    for i in $(grep '^Patch' ${srcdir}/clearlinux/linux.spec | grep -Ev '^Patch00|^Patch0120|^Patch0123|^Patch0130' | sed -n 's/.*: //p'); do
-        msg2 "Applying patch ${i}..."
-        patch -Np1 -i "$srcdir/clearlinux/${i}"
+    for i in $(grep '^Patch' ${srcdir}/clearlinux/linux.spec |\
+      grep -Ev '^Patch00|^Patch0120|^Patch0123|^Patch0130|^Patch1001' | sed -n 's/.*: //p'); do
+      msg2 "Applying patch ${i}..."
+      patch -Np1 -i "$srcdir/clearlinux/${i}"
     done
 
     ### Link the WireGuard source directory into the kernel tree
     msg2 "Adding the WireGuard source directory..."
-    "${srcdir}/WireGuard-${_wrg_snap}/contrib/kernel-tree/jury-rig.sh" ./
+    "${srcdir}/wireguard-linux-compat-${_wrg_snap}/kernel-tree-scripts/jury-rig.sh" ./
 
     ## Add other patches
     local src
@@ -342,12 +343,22 @@ validpgpkeys=(
     '647F28654894E3BD457199BE38DBBDC86092693E' # Greg Kroah-Hartman
 )
 sha256sums=('bf338980b1670bca287f9994b7441c2361907635879169c64ae78364efc5f491'
-    'SKIP'
-    '80853920a753762e058e35b754d3e0d16ec2fb485dfb84cc40fbdba383a8da17'
-    'SKIP'
-    '5aba6f0c38e97faa0b155623ba594bb0e4bd5e29deacd8d5ed8bda8d8283b0e7'
-    '8c11086809864b5cef7d079f930bd40da8d0869c091965fa62e95de9a0fe13b5'
-    'a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac'
-    '0b770209a72171dfd46401d67d13204a767eb1749ef522df7ea7292b83046537'
-    'b8a9225b4b5cbabac26398d11cc26566e4407d150dacb92f3411c9bb8cc23942'
-    'fe110dbbe3ee1439e0510e4d6864f5fc321f110f1c6db4c220c11945b002a22f')
+            'SKIP'
+            '7d99e8136518db0601abb7b59388c07838125901f540084d4575e87602544fd1'
+            '7c0e576459c6337bcdea692bdbec561719a15da207dc739e0e3e60ff821a5491'
+            'SKIP'
+            '8c11086809864b5cef7d079f930bd40da8d0869c091965fa62e95de9a0fe13b5'
+            'a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac'
+            '0b770209a72171dfd46401d67d13204a767eb1749ef522df7ea7292b83046537'
+            'b8a9225b4b5cbabac26398d11cc26566e4407d150dacb92f3411c9bb8cc23942'
+            'fe110dbbe3ee1439e0510e4d6864f5fc321f110f1c6db4c220c11945b002a22f')
+sha256sums=('bf338980b1670bca287f9994b7441c2361907635879169c64ae78364efc5f491'
+            'SKIP'
+            '5daea86d29246b5a8e193c097756bc833b33dd6fa6419f9cb52bcbf16a192a1b'
+            '7c0e576459c6337bcdea692bdbec561719a15da207dc739e0e3e60ff821a5491'
+            'SKIP'
+            '8c11086809864b5cef7d079f930bd40da8d0869c091965fa62e95de9a0fe13b5'
+            'a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac'
+            '0b770209a72171dfd46401d67d13204a767eb1749ef522df7ea7292b83046537'
+            'b8a9225b4b5cbabac26398d11cc26566e4407d150dacb92f3411c9bb8cc23942'
+            'fe110dbbe3ee1439e0510e4d6864f5fc321f110f1c6db4c220c11945b002a22f')
