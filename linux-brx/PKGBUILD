@@ -59,10 +59,17 @@ _localmodcfg=y
 # https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF#Bypassing_the_IOMMU_groups_(ACS_override_patch)
 _enable_acs_override="y"
 
+# Use the current kernel's .config file
+# Enabling this option will use the .config of the RUNNING kernel rather than
+# the ARCH defaults. Useful when the package gets updated and you already went
+# through the trouble of customizing your config options.  NOT recommended when
+# a new kernel is released, but again, convenient for package bumps.
+_use_current=
+
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 
 _major=5.4
-_minor=10
+_minor=11
 _srcname=linux-${_major}
 _clr=${_major}.8-886
 _bmqversion=5.4-r1
@@ -82,13 +89,13 @@ source=(
     "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.xz"
     "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.sign"
     "https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
-    "https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-${_wrg_snap}.tar.xz"
     "clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
+    "https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-${_wrg_snap}.tar.xz"
     "enable_additional_cpu_optimizations-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_gcc_patch/archive/$_gcc_more_v.tar.gz"
     "pci-enable-overrides-for-missing-acs-capabilities.patch"
-    "0001_${_bmq_patch}::https://gitlab.com/alfredchen/bmq/raw/master/${_bmqversion%-*}/${_bmq_patch}"
     'futex-wait-multiple-5.2.1.patch::https://aur.archlinux.org/cgit/aur.git/plain/futex-wait-multiple-5.2.1.patch?h=linux-fsync'
     'Revert-e1000e-5.4.patch'
+    "0001_${_bmq_patch}::https://gitlab.com/alfredchen/bmq/raw/master/${_bmqversion%-*}/${_bmq_patch}"
 )
 
 export KBUILD_BUILD_HOST=archlinux
@@ -137,7 +144,7 @@ prepare() {
     msg2 "Enable extra stuff from arch kernel..."
 
     # General setup
-    scripts/config --module IKCONFIG \
+    scripts/config --enable IKCONFIG \
         --enable-after IKCONFIG IKCONFIG_PROC \
         --undefine RT_GROUP_SCHED
 
@@ -190,6 +197,21 @@ prepare() {
     ### Prepared version
     make -s kernelrelease >version
     msg2 "Prepared %s version %s" "$pkgbase" "$(<version)"
+
+    ### Optionally use running kernel's config
+    # code originally by nous; http://aur.archlinux.org/packages.php?ID=40191
+    if [ -n "$_use_current" ]; then
+        if [[ -s /proc/config.gz ]]; then
+            msg2 "Extracting config from /proc/config.gz..."
+            # modprobe configs
+            zcat /proc/config.gz > ./.config
+        else
+            warning "Your kernel was not compiled with IKCONFIG_PROC!"
+            warning "You cannot read the current config!"
+            warning "Aborting!"
+            exit
+        fi
+    fi
 
     ### Optionally load needed modules for the make localmodconfig
     # See https://aur.archlinux.org/packages/modprobed-db
@@ -344,31 +366,11 @@ validpgpkeys=(
 )
 sha256sums=('bf338980b1670bca287f9994b7441c2361907635879169c64ae78364efc5f491'
             'SKIP'
-            '7d99e8136518db0601abb7b59388c07838125901f540084d4575e87602544fd1'
-            '7c0e576459c6337bcdea692bdbec561719a15da207dc739e0e3e60ff821a5491'
+            '6e675f327db0f7db9dce8791895f9a22f9e5e2ed037f6b656bb414ed6c824d2e'
             'SKIP'
+            '7c0e576459c6337bcdea692bdbec561719a15da207dc739e0e3e60ff821a5491'
             '8c11086809864b5cef7d079f930bd40da8d0869c091965fa62e95de9a0fe13b5'
             'a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac'
-            '0b770209a72171dfd46401d67d13204a767eb1749ef522df7ea7292b83046537'
             'b8a9225b4b5cbabac26398d11cc26566e4407d150dacb92f3411c9bb8cc23942'
-            'fe110dbbe3ee1439e0510e4d6864f5fc321f110f1c6db4c220c11945b002a22f')
-sha256sums=('bf338980b1670bca287f9994b7441c2361907635879169c64ae78364efc5f491'
-            'SKIP'
-            '5daea86d29246b5a8e193c097756bc833b33dd6fa6419f9cb52bcbf16a192a1b'
-            '7c0e576459c6337bcdea692bdbec561719a15da207dc739e0e3e60ff821a5491'
-            'SKIP'
-            '8c11086809864b5cef7d079f930bd40da8d0869c091965fa62e95de9a0fe13b5'
-            'a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac'
-            '0b770209a72171dfd46401d67d13204a767eb1749ef522df7ea7292b83046537'
-            'b8a9225b4b5cbabac26398d11cc26566e4407d150dacb92f3411c9bb8cc23942'
-            'fe110dbbe3ee1439e0510e4d6864f5fc321f110f1c6db4c220c11945b002a22f')
-sha256sums=('bf338980b1670bca287f9994b7441c2361907635879169c64ae78364efc5f491'
-            'SKIP'
-            'a1add96c0e86872e2e81662aeca3db981e47791df0529e1e2984eb3129d9db34'
-            '7c0e576459c6337bcdea692bdbec561719a15da207dc739e0e3e60ff821a5491'
-            'SKIP'
-            '8c11086809864b5cef7d079f930bd40da8d0869c091965fa62e95de9a0fe13b5'
-            'a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac'
-            '0b770209a72171dfd46401d67d13204a767eb1749ef522df7ea7292b83046537'
-            'b8a9225b4b5cbabac26398d11cc26566e4407d150dacb92f3411c9bb8cc23942'
-            'fe110dbbe3ee1439e0510e4d6864f5fc321f110f1c6db4c220c11945b002a22f')
+            'fe110dbbe3ee1439e0510e4d6864f5fc321f110f1c6db4c220c11945b002a22f'
+            '0b770209a72171dfd46401d67d13204a767eb1749ef522df7ea7292b83046537')
