@@ -1,6 +1,6 @@
 pkgbase = linux-brx
 	pkgdesc = Linux
-	pkgver = 5.4.18
+	pkgver = 5.5.3
 	pkgrel = 1
 	url = https://github.com/brenix/pkgbuilds
 	arch = x86_64
@@ -13,26 +13,26 @@ pkgbase = linux-brx
 	makedepends = libelf
 	makedepends = xmlto
 	options = !strip
-	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.4.tar.xz
-	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.4.tar.sign
-	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.4.18.xz
-	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.4.18-902
+	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.5.tar.xz
+	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.5.tar.sign
+	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.5.3.xz
+	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.5.2-903
 	source = https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-0.0.20200205.tar.xz
-	source = enable_additional_cpu_optimizations-20190822.tar.gz::https://github.com/graysky2/kernel_gcc_patch/archive/20190822.tar.gz
+	source = enable_additional_cpu_optimizations-20191217.tar.gz::https://github.com/graysky2/kernel_gcc_patch/archive/20191217.tar.gz
 	source = pci-enable-overrides-for-missing-acs-capabilities.patch
 	source = futex-wait-multiple-5.2.1.patch::https://aur.archlinux.org/cgit/aur.git/plain/futex-wait-multiple-5.2.1.patch?h=linux-fsync
-	source = 0001_bmq_v5.4-r2.patch::https://gitlab.com/alfredchen/bmq/raw/master/5.4/bmq_v5.4-r2.patch
+	source = 0001_bmq_v5.5-r1.patch::https://gitlab.com/alfredchen/bmq/raw/master/5.5/bmq_v5.5-r1.patch
 	validpgpkeys = ABAF11C65A2970B130ABE3C479BE3E4300411886
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
-	sha256sums = bf338980b1670bca287f9994b7441c2361907635879169c64ae78364efc5f491
+	sha256sums = a6fbd4ee903c128367892c2393ee0d9657b6ed3ea90016d4dc6f1f6da20b2330
 	sha256sums = SKIP
-	sha256sums = 88a35b9b03bf4ffe5b043baccc9655a80c24e67a64f2dcd7f9bb29c8faa37f3f
+	sha256sums = 49a9de13452eec4807a8b55d054318ac552625d4285bec74f3d669bb0eb3a074
 	sha256sums = SKIP
 	sha256sums = 9669e165fc7252cab7f908ba57f160f6d57539b7cc81180f260cb675d2fd362b
-	sha256sums = 8c11086809864b5cef7d079f930bd40da8d0869c091965fa62e95de9a0fe13b5
+	sha256sums = 7a4a209de815f4bae49c7c577c0584c77257e3953ac4324d2aa425859ba657f5
 	sha256sums = a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac
 	sha256sums = b8a9225b4b5cbabac26398d11cc26566e4407d150dacb92f3411c9bb8cc23942
-	sha256sums = 6a6a736cf1b3513d108bfd36f60baf50bb36b33aec21ab0d0ffad13602b7ff75
+	sha256sums = 2382fecb1572a309d710d465ca6e66cc718d389246b80158868d1814891ff71a
 
 pkgname = linux-brx
 	pkgdesc = The Linux kernel and modules
