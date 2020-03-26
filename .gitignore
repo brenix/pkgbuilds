@@ -2,9 +2,7 @@
 **/kubelet
 **/src
 **/pkg
-*.conf
 *.deb
-*.service
 *.tar.xz
 *.tgz
 *.zst
