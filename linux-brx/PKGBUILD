@@ -69,9 +69,9 @@ _use_current=
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 
 _major=5.5
-_minor=14
+_minor=15
 _srcname=linux-${_major}
-_clr=${_major}.13-924
+_clr=${_major}.14-928
 _bmqversion=5.5-r3
 _bmq_patch="bmq_v${_bmqversion}.patch"
 pkgbase=linux-brx
@@ -83,14 +83,12 @@ url="https://github.com/brenix/pkgbuilds"
 license=('GPL2')
 makedepends=('bc' 'cpio' 'git' 'inetutils' 'kmod' 'libelf' 'xmlto')
 options=('!strip')
-_wrg_snap='1.0.20200330'
 _gcc_more_v='20191217'
 source=(
     "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.xz"
     "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.sign"
     "https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
     "clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
-    "https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-${_wrg_snap}.tar.xz"
     "enable_additional_cpu_optimizations-$_gcc_more_v.tar.gz::https://github.com/graysky2/kernel_gcc_patch/archive/$_gcc_more_v.tar.gz"
     "pci-enable-overrides-for-missing-acs-capabilities.patch"
     "0001_${_bmq_patch}::https://gitlab.com/alfredchen/bmq/raw/master/${_bmqversion%-*}/${_bmq_patch}"
@@ -119,10 +117,6 @@ prepare() {
       msg2 "Applying patch ${i}..."
       patch -Np1 -i "$srcdir/clearlinux/${i}"
     done
-
-    ### Link the WireGuard source directory into the kernel tree
-    msg2 "Adding the WireGuard source directory..."
-    "${srcdir}/wireguard-linux-compat-${_wrg_snap}/kernel-tree-scripts/jury-rig.sh" ./
 
     ## Add other patches
     local src
@@ -246,7 +240,7 @@ _package() {
     optdepends=('crda: to set the correct wireless channels of your country'
         'linux-firmware: firmware images needed for some devices'
         'modprobed-db: Keeps track of EVERY kernel module that has ever been probed - useful for those of us who make localmodconfig')
-    provides=('WIREGUARD-MODULE')
+    provides=(VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
     install=linux.install
 
     cd $_srcname
@@ -267,9 +261,6 @@ _package() {
 
     # remove build and source links
     rm "$modulesdir"/{source,build}
-
-    msg2 "Fixing permissions..."
-    chmod -Rc u=rwX,go=rX "$pkgdir"
 }
 
 _package-headers() {
@@ -345,9 +336,6 @@ _package-headers() {
     msg2 "Adding symlink..."
     mkdir -p "$pkgdir/usr/src"
     ln -sr "$builddir" "$pkgdir/usr/src/$pkgbase"
-
-    msg2 "Fixing permissions..."
-    chmod -Rc u=rwX,go=rX "$pkgdir"
 }
 
 pkgname=("$pkgbase" "$pkgbase-headers")
@@ -364,9 +352,8 @@ validpgpkeys=(
 )
 sha256sums=('a6fbd4ee903c128367892c2393ee0d9657b6ed3ea90016d4dc6f1f6da20b2330'
             'SKIP'
-            'c7543f9484e3ed755ca9068967facb01f77971efe80829f6d9c6fd35939c7b0a'
+            '938b47e8e6c8e7ee091d0da149eab7cc63f3858bc7cc043ed4963771dc621b90'
             'SKIP'
-            '2d57b239605be2ee0e4c2da935ff1a23e9ed8bb3ee692e10ae032ae50f280bef'
             '7a4a209de815f4bae49c7c577c0584c77257e3953ac4324d2aa425859ba657f5'
             'a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac'
             '1a647aa24074af0cc3a0ecbf8c720ab496be9fe1a62fab41c524eb6cc5dcccda')
