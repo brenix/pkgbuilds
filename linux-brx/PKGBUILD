@@ -69,9 +69,9 @@ _use_current=
 ### IMPORTANT: Do no edit below this line unless you know what you're doing
 
 _major=5.5
-_minor=15
+_minor=16
 _srcname=linux-${_major}
-_clr=${_major}.14-928
+_clr=${_major}.15-930
 _bmqversion=5.5-r3
 _bmq_patch="bmq_v${_bmqversion}.patch"
 pkgbase=linux-brx
@@ -352,7 +352,7 @@ validpgpkeys=(
 )
 sha256sums=('a6fbd4ee903c128367892c2393ee0d9657b6ed3ea90016d4dc6f1f6da20b2330'
             'SKIP'
-            '938b47e8e6c8e7ee091d0da149eab7cc63f3858bc7cc043ed4963771dc621b90'
+            '7c81bd691570248865609b2cfc103be6e8e561ac37ea8dbd3d3ae2faf6dbfd8e'
             'SKIP'
             '7a4a209de815f4bae49c7c577c0584c77257e3953ac4324d2aa425859ba657f5'
             'a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac'
