@@ -113,7 +113,7 @@ prepare() {
 
     ### Add Clearlinux patches
     for i in $(grep '^Patch' ${srcdir}/clearlinux/linux.spec |\
-      grep -Ev '^Patch00|^Patch0123' | sed -n 's/.*: //p'); do
+      grep -Ev '^Patch00|^Patch0120|^Patch0123|^Patch0130|^Patch1001' | sed -n 's/.*: //p'); do
       msg2 "Applying patch ${i}..."
       patch -Np1 -i "$srcdir/clearlinux/${i}"
     done
@@ -175,6 +175,9 @@ prepare() {
 
     # Console loglevel
     scripts/config --set-val CONFIG_CONSOLE_LOGLEVEL_DEFAULT 4
+
+    # Disable tracers
+    scripts/config --disable CONFIG_FTRACE
 
     make olddefconfig
 
