@@ -16,7 +16,7 @@ pkgbase = linux-brx
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.tar.xz
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.tar.sign
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.6.7.xz
-	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.6.5-941
+	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.6.6-942
 	source = enable_additional_cpu_optimizations-20191217.tar.gz::https://github.com/graysky2/kernel_gcc_patch/archive/20191217.tar.gz
 	source = pci-enable-overrides-for-missing-acs-capabilities.patch
 	source = 0001_bmq_v5.6-r3.patch::https://gitlab.com/alfredchen/bmq/raw/master/5.6/bmq_v5.6-r3.patch
