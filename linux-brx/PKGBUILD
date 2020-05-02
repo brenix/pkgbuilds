@@ -26,7 +26,6 @@ source=(
   "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.xz"
   "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.sign"
   "clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
-  "pci-enable-overrides-for-missing-acs-capabilities.patch"
   "https://github.com/zen-kernel/zen-kernel/releases/download/v${_zen}/v${_zen}.patch.xz"
   config
 )
@@ -60,14 +59,14 @@ prepare() {
   done
 
   ## Add other patches
-  # local src
-  # for src in "${source[@]}"; do
-  #   src="${src%%::*}"
-  #   src="${src##*/}"
-  #   [[ $src = *.patch ]] || continue
-  #   msg2 "Applying patch ${src}..."
-  #   patch -Np1 < "../$src"
-  # done
+  local src
+  for src in "${source[@]}"; do
+    src="${src%%::*}"
+    src="${src##*/}"
+    [[ $src = *.patch ]] || continue
+    msg2 "Applying patch ${src}..."
+    patch -Np1 < "../$src"
+  done
 
   echo "Setting config..."
   cp ../config .config
@@ -216,6 +215,5 @@ done
 sha256sums=('e342b04a2aa63808ea0ef1baab28fc520bd031ef8cf93d9ee4a31d4058fcb622'
             'SKIP'
             'SKIP'
-            'a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac'
             '850c3df90e87e4a6acbe24ead5270eca06ac8e7d8e80231ed260870a3e243e83'
             '312df75b3d2a458a5a29beabe09d02db2eac582192d35493aa6b5eddc047cd55')

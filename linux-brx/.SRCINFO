@@ -16,7 +16,6 @@ pkgbase = linux-brx
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.tar.xz
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.tar.sign
 	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.6.8-945
-	source = pci-enable-overrides-for-missing-acs-capabilities.patch
 	source = https://github.com/zen-kernel/zen-kernel/releases/download/v5.6.9-zen1/v5.6.9-zen1.patch.xz
 	source = config
 	validpgpkeys = ABAF11C65A2970B130ABE3C479BE3E4300411886
@@ -25,7 +24,6 @@ pkgbase = linux-brx
 	sha256sums = e342b04a2aa63808ea0ef1baab28fc520bd031ef8cf93d9ee4a31d4058fcb622
 	sha256sums = SKIP
 	sha256sums = SKIP
-	sha256sums = a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac
 	sha256sums = 850c3df90e87e4a6acbe24ead5270eca06ac8e7d8e80231ed260870a3e243e83
 	sha256sums = 312df75b3d2a458a5a29beabe09d02db2eac582192d35493aa6b5eddc047cd55
 
