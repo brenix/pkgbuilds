@@ -2,7 +2,8 @@
 
 My personalized kernel with the following patchsets and fixes
 
+- Zen patchset
 - Clearlinux patches
-- BMQ scheduler
-- GCC CPU Optimization
+- Haswell optimized
+- MUQSS scheduler
 - CONFIG_PREEMPT_VOLUNTARY for fixing QEMU high CPU and slow VM start

@@ -1,6 +1,6 @@
 pkgbase = linux-brx
-	pkgdesc = Linux
-	pkgver = 5.6.8
+	pkgdesc = Linux BRX
+	pkgver = 5.6.10
 	pkgrel = 1
 	url = https://github.com/brenix/pkgbuilds
 	arch = x86_64
@@ -15,33 +15,30 @@ pkgbase = linux-brx
 	options = !strip
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.tar.xz
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.tar.sign
-	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.6.8.xz
-	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.6.8-944
-	source = enable_additional_cpu_optimizations-20191217.tar.gz::https://github.com/graysky2/kernel_gcc_patch/archive/20191217.tar.gz
+	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.6.8-945
 	source = pci-enable-overrides-for-missing-acs-capabilities.patch
-	source = 0001_bmq_v5.6-r3.patch::https://gitlab.com/alfredchen/bmq/raw/master/5.6/bmq_v5.6-r3.patch
+	source = https://github.com/zen-kernel/zen-kernel/releases/download/v5.6.9-zen1/v5.6.9-zen1.patch.xz
+	source = config
 	validpgpkeys = ABAF11C65A2970B130ABE3C479BE3E4300411886
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
+	validpgpkeys = 8218F88849AAC522E94CF470A5E9288C4FA415FA
 	sha256sums = e342b04a2aa63808ea0ef1baab28fc520bd031ef8cf93d9ee4a31d4058fcb622
 	sha256sums = SKIP
-	sha256sums = 762e16040b6eaa69739cf1cfeb8b30813d481ae6bea98d97bb80239cd43c7882
 	sha256sums = SKIP
-	sha256sums = 7a4a209de815f4bae49c7c577c0584c77257e3953ac4324d2aa425859ba657f5
 	sha256sums = a45d4b7d21abb1ff323811e1aa164d84ae86a8d5c3ae3c4e3716a90380300fac
-	sha256sums = 2340925904efa3594cc65a7bae4fbff233d5d8bc7db605ce08acaca7450d2471
+	sha256sums = 850c3df90e87e4a6acbe24ead5270eca06ac8e7d8e80231ed260870a3e243e83
+	sha256sums = 312df75b3d2a458a5a29beabe09d02db2eac582192d35493aa6b5eddc047cd55
 
 pkgname = linux-brx
-	pkgdesc = The Linux kernel and modules
-	install = linux.install
+	pkgdesc = The Linux BRX kernel and modules
 	depends = coreutils
 	depends = kmod
 	depends = initramfs
 	optdepends = crda: to set the correct wireless channels of your country
 	optdepends = linux-firmware: firmware images needed for some devices
-	optdepends = modprobed-db: Keeps track of EVERY kernel module that has ever been probed - useful for those of us who make localmodconfig
 	provides = VIRTUALBOX-GUEST-MODULES
 	provides = WIREGUARD-MODULE
 
 pkgname = linux-brx-headers
-	pkgdesc = Headers and scripts for building modules for the Linux kernel
+	pkgdesc = Headers and scripts for building modules for the Linux BRX kernel
 
