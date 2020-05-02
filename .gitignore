@@ -1,9 +1,9 @@
-**/kubeadm
-**/kubelet
-**/src
 **/pkg
+**/src
 *.deb
-*.tar.xz
+*.sign
 *.tgz
+*.xz
 *.zst
 *_amd64*
+clearlinux
