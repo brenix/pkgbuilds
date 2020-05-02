@@ -4,10 +4,6 @@ _makenconfig=y
 # Compile ONLY used modules (requires modprobed-db)
 _localmodcfg=y
 
-# Enable ACS override patch (patch needs to be enabled with kernel command line options)
-# https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF#Bypassing_the_IOMMU_groups_(ACS_override_patch)
-_enable_acs_override=y
-
 _major=5.6
 _minor=10
 _srcname=linux-${_major}
