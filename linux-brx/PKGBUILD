@@ -8,7 +8,7 @@ _major=5.6
 _minor=10
 _srcname=linux-${_major}
 _clr=${_major}.8-945
-_zen=${_major}.9-zen1
+_zen=${_major}.${_minor}-zen1
 pkgbase=linux-brx
 pkgver=${_major}.${_minor}
 pkgrel=1
@@ -23,6 +23,7 @@ source=(
   "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-${_major}.tar.sign"
   "clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=${_clr}"
   "https://github.com/zen-kernel/zen-kernel/releases/download/v${_zen}/v${_zen}.patch.xz"
+  "0001-kvm-ioapic-Introduce-arch-specific-check-for-lazy-up.patch"
   config
 )
 validpgpkeys=(
@@ -211,5 +212,6 @@ done
 sha256sums=('e342b04a2aa63808ea0ef1baab28fc520bd031ef8cf93d9ee4a31d4058fcb622'
             'SKIP'
             'SKIP'
-            '850c3df90e87e4a6acbe24ead5270eca06ac8e7d8e80231ed260870a3e243e83'
-            '312df75b3d2a458a5a29beabe09d02db2eac582192d35493aa6b5eddc047cd55')
+            '673eb51c084fc461e8c4aa2f7db35e76949654c468ca179f31223188ac0af191'
+            '88157c38460a7bdf2d373603acd35dc1a99889c129a90242fd6f9b23bb87b977'
+            '7252f1566bbfa28bef2115bee0db3d084b389cd905e594e1402929ec5f7c2fd9')
