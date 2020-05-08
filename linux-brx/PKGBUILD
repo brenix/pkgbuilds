@@ -5,10 +5,10 @@ _makenconfig=y
 _localmodcfg=y
 
 _major=5.6
-_minor=10
+_minor=11
 _srcname=linux-${_major}
-_clr=${_major}.8-945
-_zen=${_major}.${_minor}-zen1
+_clr=${_major}.11-948
+_zen=${_major}.${_minor}-zen2
 pkgbase=linux-brx
 pkgver=${_major}.${_minor}
 pkgrel=1
@@ -208,10 +208,9 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-
 sha256sums=('e342b04a2aa63808ea0ef1baab28fc520bd031ef8cf93d9ee4a31d4058fcb622'
             'SKIP'
             'SKIP'
-            '673eb51c084fc461e8c4aa2f7db35e76949654c468ca179f31223188ac0af191'
+            '23a9a0ea0d9bd3c67d6e5f4c13201b5757c864f24df56c460af232d24a4a4c5d'
             '88157c38460a7bdf2d373603acd35dc1a99889c129a90242fd6f9b23bb87b977'
-            '7252f1566bbfa28bef2115bee0db3d084b389cd905e594e1402929ec5f7c2fd9')
+            '9f5e4cf7f4693c42e0a585074e61439dda27f3dc46712995a2f77bdd76b81ede')
