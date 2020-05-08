@@ -17,7 +17,6 @@ pkgbase = linux-brx
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.tar.sign
 	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.6.11-948
 	source = https://github.com/zen-kernel/zen-kernel/releases/download/v5.6.11-zen2/v5.6.11-zen2.patch.xz
-	source = 0001-kvm-ioapic-Introduce-arch-specific-check-for-lazy-up.patch
 	source = config
 	validpgpkeys = ABAF11C65A2970B130ABE3C479BE3E4300411886
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
@@ -26,7 +25,6 @@ pkgbase = linux-brx
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = 23a9a0ea0d9bd3c67d6e5f4c13201b5757c864f24df56c460af232d24a4a4c5d
-	sha256sums = 88157c38460a7bdf2d373603acd35dc1a99889c129a90242fd6f9b23bb87b977
 	sha256sums = 9f5e4cf7f4693c42e0a585074e61439dda27f3dc46712995a2f77bdd76b81ede
 
 pkgname = linux-brx
