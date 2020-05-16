@@ -5,9 +5,9 @@ _makenconfig=y
 _localmodcfg=y
 
 _major=5.6
-_minor=12
+_minor=13
 _srcname=linux-${_major}
-_clr=${_major}.11-948
+_clr=${_major}.12-951
 _zen=${_major}.${_minor}-zen1
 pkgbase=linux-brx
 pkgver=${_major}.${_minor}
@@ -210,5 +210,5 @@ done
 sha256sums=('e342b04a2aa63808ea0ef1baab28fc520bd031ef8cf93d9ee4a31d4058fcb622'
             'SKIP'
             'SKIP'
-            '1e5284701445b4ee73995f6c21113971d2b5d4eb4affcd335a9c17fbc011f402'
-            'cc93a0afed4c43afef9db15c52914966a738f679911c309ad725c2e38c7c7ff4')
+            '79217a3796a03e5becf3377b99f8afa6080d111c73d44c6470462aa5f91b1c77'
+            'SKIP')
