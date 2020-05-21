@@ -1,0 +1,19 @@
+# Contributor: Paul Nicholson <brenix@gmail.com>
+
+_name=yq
+pkgname=yq-bin
+pkgdesc="Portable command-line YAML processor"
+pkgver=3.3.0
+pkgrel=1
+arch=('x86_64')
+url="https://github.com/mikefarah/yq"
+license=('MIT')
+provides=('yq')
+source=(
+  "${_name}-${pkgver}::https://github.com/mikefarah/yq/releases/download/${pkgver}/yq_linux_amd64"
+)
+sha256sums=('e70e482e7ddb9cf83b52f5e83b694a19e3aaf36acf6b82512cbe66e41d569201')
+
+package() {
+  install -Dm0755 ${_name}-${pkgver} "${pkgdir}/usr/bin/${_name}"
+}
