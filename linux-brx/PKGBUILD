@@ -5,7 +5,7 @@ _makenconfig=y
 _localmodcfg=y
 
 _major=5.6
-_minor=14
+_minor=15
 _srcname=linux-${_major}
 _clr=${_major}.14-955
 _zen=${_major}.${_minor}-zen1
@@ -210,5 +210,5 @@ done
 sha256sums=('e342b04a2aa63808ea0ef1baab28fc520bd031ef8cf93d9ee4a31d4058fcb622'
             'SKIP'
             'SKIP'
-            '5f4f23436bda431eadfad11d1cc3b8663b8685507947a4848b6f2c2f6706c3a7'
-            '535a8694d7bb5fa2a05a149b863c112c5680297bdb1c24d1388e1580b4e4ae90')
+            '13d5ba56e30919d7d13470abc40eb2faf382351c4f46e34a1c31550493d574ff'
+            'ca8b36cae146452c4a861b425f6ba1c17d5b719afbeddb3e13dbd09f1470d9d3')

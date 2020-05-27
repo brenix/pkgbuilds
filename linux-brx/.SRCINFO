@@ -1,6 +1,6 @@
 pkgbase = linux-brx
 	pkgdesc = Linux BRX
-	pkgver = 5.6.14
+	pkgver = 5.6.15
 	pkgrel = 1
 	url = https://github.com/brenix/pkgbuilds
 	arch = x86_64
@@ -16,7 +16,7 @@ pkgbase = linux-brx
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.tar.xz
 	source = https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.tar.sign
 	source = clearlinux::git+https://github.com/clearlinux-pkgs/linux.git#tag=5.6.14-955
-	source = https://github.com/zen-kernel/zen-kernel/releases/download/v5.6.14-zen1/v5.6.14-zen1.patch.xz
+	source = https://github.com/zen-kernel/zen-kernel/releases/download/v5.6.15-zen1/v5.6.15-zen1.patch.xz
 	source = config
 	validpgpkeys = ABAF11C65A2970B130ABE3C479BE3E4300411886
 	validpgpkeys = 647F28654894E3BD457199BE38DBBDC86092693E
@@ -24,8 +24,8 @@ pkgbase = linux-brx
 	sha256sums = e342b04a2aa63808ea0ef1baab28fc520bd031ef8cf93d9ee4a31d4058fcb622
 	sha256sums = SKIP
 	sha256sums = SKIP
-	sha256sums = 5f4f23436bda431eadfad11d1cc3b8663b8685507947a4848b6f2c2f6706c3a7
-	sha256sums = 535a8694d7bb5fa2a05a149b863c112c5680297bdb1c24d1388e1580b4e4ae90
+	sha256sums = 13d5ba56e30919d7d13470abc40eb2faf382351c4f46e34a1c31550493d574ff
+	sha256sums = ca8b36cae146452c4a861b425f6ba1c17d5b719afbeddb3e13dbd09f1470d9d3
 
 pkgname = linux-brx
 	pkgdesc = The Linux BRX kernel and modules
