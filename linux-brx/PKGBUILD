@@ -7,8 +7,8 @@ _localmodcfg=y
 _major=5.6
 _minor=15
 _srcname=linux-${_major}
-_clr=${_major}.14-955
-_zen=${_major}.${_minor}-zen1
+_clr=${_major}.15-956
+_zen=${_major}.${_minor}-zen2
 pkgbase=linux-brx
 pkgver=${_major}.${_minor}
 pkgrel=1
@@ -210,5 +210,5 @@ done
 sha256sums=('e342b04a2aa63808ea0ef1baab28fc520bd031ef8cf93d9ee4a31d4058fcb622'
             'SKIP'
             'SKIP'
-            '13d5ba56e30919d7d13470abc40eb2faf382351c4f46e34a1c31550493d574ff'
-            'ca8b36cae146452c4a861b425f6ba1c17d5b719afbeddb3e13dbd09f1470d9d3')
+            '39459f460b525024a6ebf2489e5f9363579ad20197abfd08892901bfe26ea4ac'
+            'SKIP')
