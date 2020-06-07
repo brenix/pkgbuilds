@@ -4,7 +4,7 @@
 # Contributor: Scytrin dai Kinthra <scytrin@gmail.com>
 
 pkgname=st-git
-pkgver=0.8.3.r18.ga2a7044
+pkgver=0.8.3.r19.g9ba7ecf
 pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
 url='https://st.suckless.org/'
