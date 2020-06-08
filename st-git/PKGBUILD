@@ -26,7 +26,7 @@ pkgver() {
 
 prepare() {
     cd "$srcdir/$_gitdir"
-    echo "Cleaning up git directory ..."
+    msg "Cleaning up git directory ..."
     git reset --hard
     git clean -xfd
 
@@ -38,13 +38,13 @@ prepare() {
         done;
     fi;
 
-    echo "Copying config.def.h to $_startdir ..."
+    msg "Copying config.def.h to $_startdir ..."
     cp config.def.h "$_startdir/"
 
-    echo "Copying config.h from $_startdir if it exists..."
+    msg "Copying config.h from $_startdir if it exists..."
     [ -f "$_startdir/config.h" ] \
         && cp "$_startdir/config.h" . \
-	|| echo 'Falling back to config.def.h...'
+	|| msg 'Falling back to config.def.h...'
 }
 
 build() {
