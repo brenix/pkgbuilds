@@ -7,3 +7,5 @@
 *.zst
 *_amd64*
 clearlinux
+pkg
+src
