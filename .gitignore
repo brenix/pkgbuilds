@@ -1,11 +1,6 @@
-**/pkg
-**/src
-*.deb
-*.sign
-*.tgz
-*.xz
-*.zst
-*_amd64*
-clearlinux
-pkg
-src
+*/*
+!*/.SRCINFO
+!*/PKGBUILD
+!*/*.patch
+!*/*.md
+!*/*.conf
