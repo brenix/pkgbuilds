@@ -3,14 +3,14 @@
 _name=yq
 pkgname=yq-bin
 pkgdesc="Portable command-line YAML processor"
-pkgver=4.0.0
+pkgver=4.9.3
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/mikefarah/yq"
 license=('MIT')
 provides=('yq')
 source=(
-  "${_name}-${pkgver}::https://github.com/mikefarah/yq/releases/download/${pkgver}/yq_linux_amd64"
+  "${_name}-${pkgver}::https://github.com/mikefarah/yq/releases/download/v${pkgver}/yq_linux_amd64"
 )
 sha256sums=('SKIP')
 
