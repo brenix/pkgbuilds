@@ -3,7 +3,7 @@
 _name=yq
 pkgname=yq-bin
 pkgdesc="Portable command-line YAML processor"
-pkgver=4.9.3
+pkgver=4.11.0
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/mikefarah/yq"
